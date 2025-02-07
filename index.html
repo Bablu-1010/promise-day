@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise Day ❤️</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            font-family: 'Arial', sans-serif;
+            color: #fff;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .typing-text {
+            min-height: 300px;
+            font-size: calc(16px + 0.5vw);
+            line-height: 1.8;
+            white-space: pre-wrap;
+            margin-bottom: 2rem;
+            text-align: left;
+            opacity: 0.9;
+        }
+
+        @keyframes glow {
+            0%, 100% {
+                text-shadow: 0 0 10px #ff6b6b,
+                           0 0 20px #ff6b6b,
+                           0 0 30px #ff6b6b;
+            }
+            50% {
+                text-shadow: 0 0 20px #ff4757,
+                           0 0 30px #ff4757,
+                           0 0 40px #ff4757;
+            }
+        }
+
+        .promise-text {
+            font-size: calc(32px + 2vw);
+            font-weight: bold;
+            color: #ff6b6b;
+            animation: glow 2s ease-in-out infinite;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s ease;
+        }
+
+        .show-promise {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hearts {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 20px;
+            color: #ff6b6b;
+            opacity: 0;
+            animation: floating 4s ease-in infinite;
+        }
+
+        @keyframes floating {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            .typing-text {
+                font-size: calc(14px + 0.5vw);
+                min-height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts"></div>
+    <div class="container">
+        <div class="typing-text"></div>
+        <div class="promise-text">I Promise ❤️</div>
+    </div>
+
+    <script>
+        const text = `My dearest love,
+
+As I write these words, my heart beats with the rhythm of countless promises I want to make to you. Each day with you feels like a new chapter in our beautiful story, and today, on Promise Day, I want to tell you everything my heart holds.
+
+I promise to be your strength when you feel weak, your smile when you're sad, and your biggest cheerleader in all your dreams. I promise to hold your hand through life's storms and dance with you in its sunshine.
+
+I promise to love you not just in your perfect moments, but in your imperfect ones too. To cherish every laugh, every tear, and every silly joke we share. I promise to grow with you, learn with you, and build our dreams together.
+
+Most importantly, I promise to be true to you, to choose you every single day, and to love you more with each passing moment. You're not just my love; you're my best friend, my confidant, and my home.
+
+These aren't just words; they're promises written with my heart, sealed with my love, and meant to last forever.`;
+
+        const typingText = document.querySelector('.typing-text');
+        const promiseText = document.querySelector('.promise-text');
+        let charIndex = 0;
+
+        function type() {
+            if (charIndex < text.length) {
+                typingText.textContent += text.charAt(charIndex);
+                charIndex++;
+                setTimeout(type, 30); // Adjust speed here (lower = faster)
+            } else {
+                promiseText.classList.add('show-promise');
+                createHearts();
+            }
+        }
+
+        function createHearts() {
+            const heartsContainer = document.querySelector('.hearts');
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.innerHTML = '❤️';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                heartsContainer.appendChild(heart);
+                setTimeout(() => heart.remove(), 4000);
+            }, 300);
+        }
+
+        // Start typing when page loads
+        window.onload = type;
+    </script>
+</body>
+</html>
